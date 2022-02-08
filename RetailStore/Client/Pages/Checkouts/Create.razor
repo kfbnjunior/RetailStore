@@ -1,0 +1,29 @@
+﻿@page "/checkouts/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Checkout</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Checkout" checkout="checkout" OnValidSubmit="@CreateCheckout" />
+
+@code {
+    Checkout checkout = new Checkout();
+
+    private IList<Item> Items;
+    private IList<Customer> Customers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Items = await _client.GetFromJsonAsync<List<Item>>($"{Endpoints.ItemsEndpoint}");
+        Customers = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndpoint}");
+        //booking.DateOut = DateTime.Now;
+    }
+
+    private async Task CreateCheckout()
+    {
+        await _client.PostAsJsonAsync(Endpoints.CheckoutsEndpoint, checkout);
+        _navManager.NavigateTo("/checkouts/");
+    }
+}

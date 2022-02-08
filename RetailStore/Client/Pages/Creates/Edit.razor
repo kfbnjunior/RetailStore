@@ -1,0 +1,23 @@
+﻿@page "/create/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit Create</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditCreate" create="create" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Create create = new Create();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        create = await _client.GetFromJsonAsync<Create>($"{Endpoints.CreatesEndpoint}/{id}");
+    }
+
+    async Task EditMake()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.CreatesEndpoint}/{id}", create);
+        _navManager.NavigateTo("/creates/");
+    }
+}

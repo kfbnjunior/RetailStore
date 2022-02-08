@@ -1,0 +1,23 @@
+﻿@page "/checkouts/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit Booking</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditCheckout" checkout="checkout" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Checkout checkout = new Checkout();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        checkout = await _client.GetFromJsonAsync<Checkout>($"{Endpoints.CheckoutsEndpoint}/{id}");
+    }
+
+    async Task EditCheckout()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.CheckoutsEndpoint}/{id}", checkout);
+        _navManager.NavigateTo("/checkouts/");
+    }
+}

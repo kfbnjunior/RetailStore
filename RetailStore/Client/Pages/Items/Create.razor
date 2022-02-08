@@ -1,0 +1,19 @@
+﻿@page "/items/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Item</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Model" item="item" OnValidSubmit="@CreateItem" />
+
+@code {
+    Item item = new Item();
+
+    private async Task CreateItem()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ItemsEndpoint, item);
+        _navManager.NavigateTo("/items/");
+    }
+}

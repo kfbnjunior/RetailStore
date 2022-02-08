@@ -1,0 +1,17 @@
+﻿@page "/checkouts/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View Checkout</h3>
+
+<FormComponent checkout="checkout" Disabled="true" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Checkout checkout = new Checkout();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        checkout = await _client.GetFromJsonAsync<Checkout>($"{Endpoints.CheckoutsEndpoint}/{id}");
+    }
+}
