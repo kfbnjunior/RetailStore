@@ -16,7 +16,7 @@ namespace RetailStore.Server.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        private IGenericRepository<Create> _creates;
+        private IGenericRepository<Order> _creates;
         private IGenericRepository<Checkout> _checkouts;
         private IGenericRepository<Item> _items;
         private IGenericRepository<Customer> _customers;
@@ -29,8 +29,8 @@ namespace RetailStore.Server.Repository
             _userManager = userManager;
         }
 
-        public IGenericRepository<Create> Creates
-            => _creates ??= new GenericRepository<Create>(_context);
+        public IGenericRepository<Order> Creates
+            => _creates ??= new GenericRepository<Order>(_context);
         public IGenericRepository<Checkout> Checkouts
             => _checkouts ??= new GenericRepository<Checkout>(_context);
         public IGenericRepository<Item> Items

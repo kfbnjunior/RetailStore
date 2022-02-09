@@ -1,17 +1,17 @@
-﻿@page "/creates/view/{id:int}"
+﻿@page "/orders/view/{id:int}"
 @inject HttpClient _client
 @inject NavigationManager _navManager
 
 <h3>View Create</h3>
 
-<FormComponent create="create" Disabled="true" />
+<FormComponent create="order" Disabled="true" />
 
 @code {
     [Parameter] public int id { get; set; }
-    Create create = new Create();
+    Order order = new Order();
 
     protected async override Task OnParametersSetAsync()
     {
-        create = await _client.GetFromJsonAsync<Create>($"{Endpoints.CreatesEndpoint}/{id}");
+        order = await _client.GetFromJsonAsync<Order>($"{Endpoints.CreatesEndpoint}/{id}");
     }
 }

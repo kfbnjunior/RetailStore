@@ -1,12 +1,12 @@
-﻿<EditForm Model="@create" OnValidSubmit="@OnValidSubmit">
+﻿<EditForm Model="@order" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <fieldset disabled="@Disabled">
         <div class="form-group">
             <label>Name: </label>
             <div>
-                <InputText @bind-Value="@create.Name" class="form-control" />
-                <ValidationMessage For="@(() => create.Name)" />
+                <InputText @bind-Value="@order.Name" class="form-control" />
+                <ValidationMessage For="@(() => order.Name)" />
             </div>
         </div>
     </fieldset>
@@ -22,7 +22,7 @@
 
 @code {
     [Parameter] public bool Disabled { get; set; } = false;
-    [Parameter] public Create create { get; set; }
+    [Parameter] public Order order { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 }

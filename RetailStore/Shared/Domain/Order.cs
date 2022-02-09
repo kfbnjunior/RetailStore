@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RetailStore.Shared.Domain
 {
-    public class Create : BaseDomainModel
+    public class Order : BaseDomainModel
     {
         public string Name { get; set; }
     }

@@ -23,14 +23,14 @@ namespace RetailStore.Server.Controllers
 
         // GET: api/Creates
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Create>>> GetCreates()
+        public async Task<ActionResult<IEnumerable<Order>>> GetCreates()
         {
             return await _context.Creates.ToListAsync();
         }
 
         // GET: api/Creates/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Create>> GetCreate(int id)
+        public async Task<ActionResult<Order>> GetCreate(int id)
         {
             var create = await _context.Creates.FindAsync(id);
 
@@ -45,7 +45,7 @@ namespace RetailStore.Server.Controllers
         // PUT: api/Creates/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCreate(int id, Create create)
+        public async Task<IActionResult> PutCreate(int id, Order create)
         {
             if (id != create.Id)
             {
@@ -76,7 +76,7 @@ namespace RetailStore.Server.Controllers
         // POST: api/Creates
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Create>> PostCreate(Create create)
+        public async Task<ActionResult<Order>> PostCreate(Order create)
         {
             _context.Creates.Add(create);
             await _context.SaveChangesAsync();

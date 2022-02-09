@@ -21,6 +21,6 @@ namespace RetailStore.Server.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Checkout> Checkouts { get; set; }
-        public DbSet<Create> Creates { get; set; }
+        public DbSet<Order> Creates { get; set; }
     }
 }

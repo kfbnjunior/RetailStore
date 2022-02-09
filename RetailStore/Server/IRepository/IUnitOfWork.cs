@@ -10,7 +10,7 @@ namespace RetailStore.Server.IRepository
     public interface IUnitOfWork : IDisposable
     {
         Task Save(HttpContext httpContext);
-        IGenericRepository<Create> Creates { get; }
+        IGenericRepository<Order> Creates { get; }
         IGenericRepository<Checkout> Checkouts { get; }
         IGenericRepository<Item> Items { get; }
         IGenericRepository<Customer> Customers { get; }

@@ -1,20 +1,20 @@
-﻿@page "/items/"
+﻿@page "/orders/"
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">Items</h3>
+<h3 class="card-title">Orders</h3>
 <br />
 
-<a href="/items/create" class="btn btn-secondary">
+<a href="/orders/create/" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
 </a>
 <br />
 <br />
 
-@if (Items == null)
+@if (Orders == null)
 {
-    <div class="alert alert-info">Loading Items...</div>
+    <div class="alert alert-info">Loading Orders...</div>
 }
 else
 {
@@ -26,18 +26,18 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Items)
+            @foreach (var order in Orders)
             {
                 <tr>
-                    <td>@item.Name</td>
+                    <td>@order.Name</td>
                     <td>
-                        <a href="/items/view/@item.Id" class="btn btn-primary">
+                        <a href="/orders/view/@order.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>
                         </a>
-                        <a href="/items/edit/@item.Id" class="btn btn-warning">
+                        <a href="/orders/edit/@order.Id" class="btn btn-warning">
                             <span class="oi oi-pencil"></span>
                         </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(item.Id))">
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(order.Id))">
                             <span class="oi oi-delete"></span>
                         </button>
                     </td>
@@ -47,23 +47,23 @@ else
     </table>
 }
 
-
 @code {
-    private List<Item> Items;
+    private List<Order> Orders;
 
     protected async override Task OnInitializedAsync()
     {
-        Items = await _client.GetFromJsonAsync<List<Item>>($"{Endpoints.ItemsEndpoint}");
+        Orders = await _client.GetFromJsonAsync<List<Order>>($"{Endpoints.CreatesEndpoint}");
     }
 
-    async Task Delete(int itemId)
+    async Task Delete(int orderId)
     {
-        var item = Items.First(q => q.Id == itemId);
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {item.Name}?");
+        var order = Orders.First(q => q.Id == orderId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {order.Name}?");
         if (confirm)
         {
-            await _client.DeleteAsync($"{Endpoints.ItemsEndpoint}/{itemId}");
+            await _client.DeleteAsync($"{Endpoints.CreatesEndpoint}/{orderId}");
             await OnInitializedAsync();
         }
     }
 }
+

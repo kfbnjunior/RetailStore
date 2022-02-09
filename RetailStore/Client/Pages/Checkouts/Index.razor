@@ -6,7 +6,7 @@
 <h3 class="card-title">Checkout Items</h3>
 <br />
 
-<a href="/customers/create" class="btn btn-secondary">
+<a href="/checkouts/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
 </a>
 <br />
@@ -33,10 +33,10 @@ else
                 <td>@checkout.Customer.FirstName</td>
                 <td>@checkout.Customer.LastName</td>
                 <td>
-                    <a href="/bookings/view/@checkout.Id" class="btn btn-primary">
+                    <a href="/checkouts/view/@checkout.Id" class="btn btn-primary">
                         <span class="oi oi-book"></span>
                     </a>
-                    <a href="/bookings/edit/@checkout.Id" class="btn btn-warning">
+                    <a href="/checkouts/edit/@checkout.Id" class="btn btn-warning">
                         <span class="oi oi-pencil"></span>
                     </a>
                     <button class="btn btn-danger" @onclick="@(()=>Delete(checkout.Id))">
@@ -58,13 +58,13 @@ else
         Checkouts = await _client.GetFromJsonAsync<List<Checkout>>($"{Endpoints.CheckoutsEndpoint}");
     }
 
-    async Task Delete(int bookingId)
+    async Task Delete(int checkoutId)
     {
-        var booking = Checkouts.First(q => q.Id == bookingId);
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {booking.Id}?");
+        var checkout = Checkouts.First(q => q.Id == checkoutId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {checkout.Id}?");
         if (confirm)
         {
-            await _client.DeleteAsync($"{Endpoints.CheckoutsEndpoint}/{bookingId}");
+            await _client.DeleteAsync($"{Endpoints.CheckoutsEndpoint}/{checkoutId}");
             await OnInitializedAsync();
         }
     }
