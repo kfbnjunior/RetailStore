@@ -18,6 +18,6 @@
     async Task EditItem()
     {
         await _client.PutAsJsonAsync($"{Endpoints.ItemsEndpoint}/{id}", item);
-        _navManager.NavigateTo("/models/");
+        _navManager.NavigateTo("/items/");
     }
 }
